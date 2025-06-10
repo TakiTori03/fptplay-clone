@@ -192,8 +192,9 @@ function handleShare(movieId: number) {
 <style scoped>
 .top-slider {
   position: relative;
+  width: 100%;
   height: 600px;
-  margin: -2rem -2rem 2rem;
+  margin-bottom: 2rem;
 }
 
 .top-slider__swiper {

@@ -9,7 +9,7 @@
         </div>
         <MovieCardCarousel
           :height="'450px'"
-          :width="'300px'"
+          :width="'320px'"
           :swiper-breakpoints="{
             320: { slidesPerView: 2.1, spaceBetween: 20 },
 

@@ -46,7 +46,8 @@ const modules = [Navigation];
 
 <style lang="scss" scoped>
 .movie-card-carousel {
-  padding: 1rem;
+  width: 100%;
+  // padding: 1rem;
 
   .swiper {
     width: 100%;
