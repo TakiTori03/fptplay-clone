@@ -1,0 +1,22 @@
+@use "variables" as *;
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+.section {
+  padding: $spacing-lg 0;
+}
+
+.header {
+  background-color: $color-background;
+  padding: $spacing-sm 0;
+}
+
+.footer {
+  background-color: $color-background;
+  padding: $spacing-md 0;
+  color: $color-gray;
+}
