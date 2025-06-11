@@ -80,9 +80,4 @@ import BackToTop from "~/components/common/BackToTop.vue";
 .header__profile:hover {
   background: rgba(255, 255, 255, 0.1);
 }
-
-.main {
-  flex: 1;
-  padding-top: 72px;
-}
 </style>

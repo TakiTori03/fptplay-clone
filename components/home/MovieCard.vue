@@ -1,24 +1,35 @@
 <template>
   <div class="movie-card" :style="{ width, height }">
     <div class="poster-wrapper">
-      <img :src="img" :alt="title" class="poster" />
-      <div class="overlay">
+      <img
+        :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+        :alt="movie.title"
+        class="poster"
+      />
+      <div class="overlay" @click="navigateToMovie">
         <PlayCircle class="play-icon" />
       </div>
     </div>
-    <p class="movie-title">{{ title }}</p>
+    <p class="movie-title">{{ movie.title }}</p>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { PlayCircle } from "lucide-vue-next";
+import type { Movie } from "~/types/movie-d-type";
+import { useRouter } from "vue-router";
 
-defineProps<{
-  img: string;
-  title: string;
+const router = useRouter();
+
+const props = defineProps<{
+  movie: Movie;
   width?: string;
   height?: string;
 }>();
+
+const navigateToMovie = () => {
+  router.push(`/xem-phim/${props.movie.id}`);
+};
 </script>
 
 <style lang="scss" scoped>

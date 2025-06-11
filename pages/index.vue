@@ -15,7 +15,7 @@
 
             768: { slidesPerView: 3.2, spaceBetween: 20 },
 
-            1536: { slidesPerView: 5.3, spaceBetween: 20 },
+            1220: { slidesPerView: 5.3, spaceBetween: 20 },
           }"
           :movies="phimBoMovies"
         />
@@ -51,11 +51,12 @@
 
             768: { slidesPerView: 3.2, spaceBetween: 10 },
 
-            1536: { slidesPerView: 5.4, spaceBetween: 10 },
+            1220: { slidesPerView: 5.4, spaceBetween: 10 },
           }"
           :movies="forYouMovies"
         />
       </div>
+      <!-- <RankingCarousel /> -->
     </div>
   </div>
 </template>
@@ -64,6 +65,7 @@
 import CategoryCarousel from "~/components/home/CategoryCarousel.vue";
 import HomeTopSlider from "~/components/home/HomeTopSlider.vue";
 import MovieCardCarousel from "~/components/home/MovieCardCarousel.vue";
+// import RankingCarousel from "~/components/home/RankingCarousel.vue";
 import type { Movie } from "~/types/movie-d-type";
 
 definePageMeta({

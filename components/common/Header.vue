@@ -8,7 +8,7 @@
       <!-- Logo -->
       <NuxtLink to="/">
         <NuxtImg
-          src="https://images.fptplay53.net/media/photo/OTT/2025/05/26/logowebsite4x_1748221195181.png"
+          src="/images/fpt_logo.webp"
           alt="FPT Play"
           class="header__logo"
         />
@@ -120,7 +120,7 @@ const toggleMobileNav = () => {
       color: #fff;
       padding: 10px 0;
       font-weight: 500;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
       transition: color 0.3s;
       display: inline;
@@ -231,7 +231,14 @@ const toggleMobileNav = () => {
       color: white;
     }
   }
-
+  @media (max-width: 1065px) {
+    &__nav {
+      .nav__item {
+        padding: 10px 0;
+        font-size: 15px;
+      }
+    }
+  }
   @media (max-width: 1054px) {
     .menu-toggle {
       display: block;
@@ -255,7 +262,7 @@ const toggleMobileNav = () => {
 
       .nav__item {
         padding: 10px 0;
-        font-size: 14px;
+        font-size: 10px;
       }
 
       .nav__dropdown {

@@ -60,35 +60,35 @@ const categories = ref<Category[]>([
     link: "/phim-le",
   },
   {
-    text: "Truyền hình",
+    text: "fifa",
     image:
-      "https://images.fptplay53.net/media/photo/OTT/2023/03/22/1679457457_3IN.png?w=300&c=0&fmt=webp",
-    link: "/truyen-hinh",
+      "https://images.fptplay53.net/media/photo/OTT/2025/05/21/1747819355_06M.png?w=300&c=0&fmt=webp",
+    link: "/fifa",
   },
   {
-    text: "Trực tiếp",
+    text: "v-league",
     image:
-      "https://images.fptplay53.net/media/photo/OTT/2023/03/22/1679457443_L16.png?w=300&c=0&fmt=webp",
-    link: "/truc-tiep",
+      "https://images.fptplay53.net/media/photo/OTT/2023/03/22/1679457468_7JC.png?w=300&c=0&fmt=webp",
+    link: "/v-league",
   },
   {
-    text: "Phim bộ",
+    text: "Thieu nhi",
     image:
-      "https://images.fptplay53.net/media/photo/OTT/2023/03/22/1679456744_VOT.png?w=300&c=0&fmt=webp",
-    link: "/phim-bo",
+      "https://images.fptplay53.net/media/photo/OTT/2023/03/22/1679457431_0VP.png?w=300&c=0&fmt=webp",
+    link: "/thieu-nhi",
   },
   {
-    text: "Phim lẻ",
+    text: "Am nhac",
     image:
-      "https://images.fptplay53.net/media/photo/OTT/2023/03/22/1679456782_75S.png?w=300&c=0&fmt=webp",
-    link: "/phim-le",
+      "https://images.fptplay53.net/media/photo/OTT/2023/03/22/1679456522_I8Z.png?w=300&c=0&fmt=webp",
+    link: "/am-nhac",
   },
 ]);
 
 const swiperBreakpoints = {
   320: { slidesPerView: 2, spaceBetween: 10 },
   768: { slidesPerView: 3, spaceBetween: 10 },
-  1536: { slidesPerView: 5.45, spaceBetween: 10 },
+  1220: { slidesPerView: 5.45, spaceBetween: 10 },
 };
 // Register Swiper modules
 const modules = [Navigation];
@@ -96,8 +96,9 @@ const modules = [Navigation];
 
 <style scoped>
 .category-swiper-container {
-  padding: 20px;
+  padding: 20px 0;
   position: relative;
+  width: 100%;
   h2 {
     color: white;
     margin-bottom: 20px;
@@ -146,6 +147,13 @@ const modules = [Navigation];
     right: auto;
     background: linear-gradient(90deg, #000000 35%, rgba(0, 0, 0, 0.5) 100%);
     box-shadow: none;
+  }
+
+  :deep(.swiper-button-disabled) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    cursor: auto;
+    pointer-events: none;
   }
 
   &:hover {

@@ -8,12 +8,7 @@
       class="mySwiper"
     >
       <swiper-slide v-for="(movie, index) in movies" :key="index">
-        <MovieCard
-          :img="`https://image.tmdb.org/t/p/original${movie.backdrop_path}`"
-          :title="movie.title"
-          :width="width"
-          :height="height"
-        />
+        <MovieCard :movie="movie" :width="width" :height="height" />
       </swiper-slide>
     </swiper>
   </div>
@@ -47,7 +42,7 @@ const modules = [Navigation];
 <style lang="scss" scoped>
 .movie-card-carousel {
   width: 100%;
-  // padding: 1rem;
+  position: relative;
 
   .swiper {
     width: 100%;
@@ -77,6 +72,12 @@ const modules = [Navigation];
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
+  }
+  :deep(.swiper-button-disabled) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    cursor: auto;
+    pointer-events: none;
   }
 
   :deep(.swiper-button-next) {

@@ -1,6 +1,19 @@
 <template>
   <div class="top-slider">
+    <!-- Loading state -->
+    <div v-if="isLoading" class="top-slider__loading">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Error state -->
+    <div v-else-if="error" class="top-slider__error">
+      <p>{{ error }}</p>
+      <button @click="fetchMovies" class="retry-button">Thử lại</button>
+    </div>
+
+    <!-- Success state -->
     <Swiper
+      v-else
       :modules="[Autoplay, Pagination, Navigation]"
       :slides-per-view="1"
       :space-between="30"
@@ -87,97 +100,39 @@ import { Play } from "lucide-vue-next";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import type { Movie } from "~/types/movie-d-type";
 
-const featuredMovies = ref([
-  {
-    adult: false,
-    backdrop_path: "/7Zx3wDG5bBtcfk8lcnCWDOLM4Y4.jpg",
-    genre_ids: [10751, 35, 878],
-    id: 552524,
-    original_language: "en",
-    original_title: "Lilo & Stitch",
-    overview:
-      "The wildly funny and touching story of a lonely Hawaiian girl and the fugitive alien who helps to mend her broken family.",
-    popularity: 768.0749,
-    poster_path: "/mKKqV23MQ0uakJS8OCE2TfV5jNS.jpg",
-    release_date: "2025-05-17",
-    title: "Lilo & Stitch",
-    video: false,
-    vote_average: 7.1,
-    vote_count: 290,
-  },
-  {
-    adult: false,
-    backdrop_path: "/2Nti3gYAX513wvhp8IiLL6ZDyOm.jpg",
-    genre_ids: [10751, 35, 12, 14],
-    id: 950387,
-    original_language: "en",
-    original_title: "A Minecraft Movie",
-    overview:
-      "Four misfits find themselves struggling with ordinary problems when they are suddenly pulled through a mysterious portal into the Overworld: a bizarre, cubic wonderland that thrives on imagination. To get back home, they'll have to master this world while embarking on a magical quest with an unexpected, expert crafter, Steve.",
-    popularity: 532.5622,
-    poster_path: "/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg",
-    release_date: "2025-03-31",
-    title: "A Minecraft Movie",
-    video: false,
-    vote_average: 6.494,
-    vote_count: 1523,
-  },
-  {
-    adult: false,
-    backdrop_path: "/uIpJPDNFoeX0TVml9smPrs9KUVx.jpg",
-    genre_ids: [27, 9648],
-    id: 574475,
-    original_language: "en",
-    original_title: "Final Destination Bloodlines",
-    overview:
-      "Plagued by a violent recurring nightmare, college student Stefanie heads home to track down the one person who might be able to break the cycle and save her family from the grisly demise that inevitably awaits them all.",
-    popularity: 423.5113,
-    poster_path: "/6WxhEvFsauuACfv8HyoVX6mZKFj.jpg",
-    release_date: "2025-05-14",
-    title: "Final Destination Bloodlines",
-    video: false,
-    vote_average: 7.0,
-    vote_count: 476,
-  },
-  {
-    adult: false,
-    backdrop_path: "/icFWIk1KfkWLZnugZAJEDauNZ94.jpg",
-    genre_ids: [27, 9648],
-    id: 1232546,
-    original_language: "en",
-    original_title: "Until Dawn",
-    overview:
-      "One year after her sister Melanie mysteriously disappeared, Clover and her friends head into the remote valley where she vanished in search of answers. Exploring an abandoned visitor center, they find themselves stalked by a masked killer and horrifically murdered one by one...only to wake up and find themselves back at the beginning of the same evening.",
-    popularity: 357.8394,
-    poster_path: "/juA4IWO52Fecx8lhAsxmDgy3M3.jpg",
-    release_date: "2025-04-23",
-    title: "Until Dawn",
-    video: false,
-    vote_average: 6.498,
-    vote_count: 463,
-  },
-  {
-    adult: false,
-    backdrop_path: "/1p5aI299YBnqrEEvVGJERk2MXXb.jpg",
-    genre_ids: [28, 12, 53],
-    id: 575265,
-    original_language: "en",
-    original_title: "Mission: Impossible - The Final Reckoning",
-    overview:
-      "Ethan Hunt and team continue their search for the terrifying AI known as the Entity — which has infiltrated intelligence networks all over the globe — with the world's governments and a mysterious ghost from Hunt's past on their trail. Joined by new allies and armed with the means to shut the Entity down for good, Hunt is in a race against time to prevent the world as we know it from changing forever.",
-    popularity: 319.5509,
-    poster_path: "/z53D72EAOxGRqdr7KXXWp9dJiDe.jpg",
-    release_date: "2025-05-17",
-    title: "Mission: Impossible - The Final Reckoning",
-    video: false,
-    vote_average: 7.1,
-    vote_count: 424,
-  },
-]);
+const featuredMovies = ref<Movie[]>([]);
+const isLoading = ref(false);
+const error = ref<string | null>(null);
+
+async function fetchMovies() {
+  isLoading.value = true;
+  error.value = null;
+
+  try {
+    const response = await fetch("/api/movies");
+    const result = await response.json();
+    if (result.success) {
+      featuredMovies.value = result.data;
+    } else {
+      error.value = "Không thể tải dữ liệu phim";
+    }
+  } catch (err: unknown) {
+    console.error("Error fetching movies:", err);
+    error.value = "Đã xảy ra lỗi khi tải dữ liệu";
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+// Gọi fetchMovies khi component được mount
+onMounted(() => {
+  fetchMovies();
+});
 
 function handlePlay(movieId: number) {
-  navigateTo(`/movie/${movieId}`);
+  navigateTo(`/xem-phim/${movieId}`);
 }
 
 function handleLike(movieId: number) {
@@ -357,5 +312,59 @@ function handleShare(movieId: number) {
 :deep(.swiper-button-next::after),
 :deep(.swiper-button-prev::after) {
   font-size: 20px;
+}
+
+.top-slider__loading {
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #e50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.top-slider__error {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+}
+
+.retry-button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #e50914;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.retry-button:hover {
+  background: #f40612;
 }
 </style>

@@ -79,15 +79,55 @@
       </div>
 
       <div class="footer__bottom">
-        <p>&copy; 2024 FPT Play. Tất cả quyền được bảo lưu.</p>
+        <div class="bottom-left">
+          <p>
+            Công ty Cổ phần Viễn Thông FPT - Người đại diện: Ông Hoàng Việt Anh.
+            Trụ sở: Tầng 2, Tòa nhà FPT Cầu Giấy, Số 17 Phố Duy Tân, Phường Dịch
+            Vọng Hậu, Quận Cầu Giấy, TP.Hà Nội
+          </p>
+          <p>
+            Địa chỉ liên lạc: Tầng 9, Block A, tòa nhà FPT Cầu Giấy, số 10 Phạm
+            Văn Bạch, quận Cầu Giấy, TP. Hà Nội
+          </p>
+          <p>
+            Số điện thoại liên hệ: 024 7300 2222. Thư điện tử:
+            hotrokhachhang@fpt.com hoặc hotrofptplay@fpt.com
+          </p>
+          <p>
+            Giấy chứng nhận đăng ký doanh nghiệp số 0101778163 do Sở Kế hoạch và
+            Đầu tư Thành phố Hà Nội cấp lần đầu ngày 28/7/2005, cấp đăng ký thay
+            đổi lần thứ 32 vào ngày 21/12/2023.
+          </p>
+          <p>
+            Giấy phép cung cấp dịch vụ phát thanh, truyền hình trả tiền số
+            377/GP-BTTTT cấp sửa đổi bổ sung lần 1 ngày 10/10/2023.
+          </p>
+        </div>
+        <div class="bottom-right">
+          <NuxtImg
+            src="https://fptplay.vn/images/box.png"
+            class="social-icon"
+          />
+          <NuxtImg src="https://fptplay.vn/images/pc.png" class="social-icon" />
+          <NuxtImg
+            src="https://fptplay.vn/images/browser.png"
+            class="social-icon"
+          />
+          <NuxtImg
+            src="https://fptplay.vn/images/apple.png"
+            class="social-icon"
+          />
+          <NuxtImg
+            src="https://fptplay.vn/images/android.png"
+            class="social-icon"
+          />
+        </div>
       </div>
     </div>
   </footer>
 </template>
 
-<script setup>
-// No additional setup needed as we're using Nuxt Icon
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
 .footer {
@@ -181,24 +221,105 @@
   }
 
   &__bottom {
-    text-align: center;
-    padding-top: 2rem;
+    display: flex;
+    gap: 45px;
+    padding-top: 1.5rem;
     border-top: 2px solid #333;
     color: #b3b3b3;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    .bottom-left {
+      max-width: 858px;
+      width: 100%;
+    }
+    .bottom-right {
+      display: flex;
+      gap: 15px;
+
+      .social-icon {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+    p {
+      margin: 0.2rem 0;
+    }
   }
 }
 
 @media (max-width: 768px) {
   .footer {
+    padding: 2rem 0 1rem;
+
+    &__container {
+      padding: 1rem;
+    }
+
     &__top {
       flex-direction: column;
       gap: 2rem;
       text-align: center;
     }
 
-    &__content {
-      grid-template-columns: 1fr;
+    &__section {
+      padding: 0;
+      max-width: 100%;
+    }
+
+    &__social {
+      .social-item {
+        justify-content: center;
+      }
+    }
+
+    &__bottom {
+      flex-direction: column;
+      gap: 2rem;
       text-align: center;
+
+      .bottom-left {
+        max-width: 100%;
+      }
+
+      .bottom-right {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    &__logo {
+      .img {
+        height: 30px;
+        width: 100px;
+      }
+    }
+    &__content {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+    &__section {
+      ul {
+        li {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    &__bottom {
+      .bottom-right {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
     }
   }
 }
