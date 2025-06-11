@@ -1,33 +1,20 @@
-import { readFileSync } from "fs";
-import { join } from "path";
-import type { Movie } from "~/types/movie-d-type";
-
-interface MovieResponse {
-  page: number;
-  results: Movie[];
-  total_pages: number;
-  total_results: number;
-}
-
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
   try {
     // Get movie ID from params
     const id = getRouterParam(event, "id");
 
-    // Read movie.json file
-    const filePath = join(process.cwd(), "public", "movie.json");
-    const fileContent = readFileSync(filePath, "utf-8");
-    const data = JSON.parse(fileContent) as MovieResponse;
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=c3c683516a9277e38dd654ff1a858d0d`
+    );
 
-    // Find movie by ID
-    const movie = data.results.find((m: Movie) => m.id === Number(id));
-
-    if (!movie) {
+    if (!response.ok) {
       throw createError({
-        statusCode: 404,
-        message: "Movie not found",
+        statusCode: response.status,
+        message: "Failed to fetch movie details",
       });
     }
+
+    const movie = await response.json();
 
     return movie;
   } catch (error: unknown) {

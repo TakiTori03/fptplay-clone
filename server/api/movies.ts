@@ -1,14 +1,17 @@
 import { defineEventHandler } from "h3";
-import { readFileSync } from "fs";
-import { join } from "path";
 import type { Movie } from "~/types/movie-d-type";
 
 export default defineEventHandler(async () => {
   try {
-    // Read the movie.json file
-    const filePath = join(process.cwd(), "public", "movie.json");
-    const fileContent = readFileSync(filePath, "utf-8");
-    const data = JSON.parse(fileContent);
+    const response = await fetch(
+      "https://api.themoviedb.org/3/movie/popular?page=1&api_key=c3c683516a9277e38dd654ff1a858d0d"
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
 
     // Sort movies by popularity and get top 5
     const popularMovies = data.results
@@ -23,7 +26,7 @@ export default defineEventHandler(async () => {
     console.error("Error fetching movies:", err);
     return {
       success: false,
-      error: "Failed to fetch movies",
+      error: err instanceof Error ? err.message : "Failed to fetch movies",
     };
   }
 });
