@@ -178,7 +178,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // Dữ liệu tĩnh, có thể chuyển sang động sau
 </script>
 

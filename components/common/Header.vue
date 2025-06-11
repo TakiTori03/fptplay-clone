@@ -98,7 +98,7 @@
   <AuthModal v-if="showModal" :close="() => (showModal = false)"> </AuthModal>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Bell, Search, Wallet, Menu } from "lucide-vue-next";
 import AuthModal from "../auth/AuthModal.vue";
 const dropdownVisible = ref(false);

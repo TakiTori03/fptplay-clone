@@ -99,7 +99,7 @@
   </teleport>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineProps(["close"]);
 </script>
 

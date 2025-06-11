@@ -204,6 +204,11 @@ function handleShare(movieId: number) {
   line-height: 1.5;
   margin-bottom: 2rem;
   opacity: 0.9;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .top-slider__actions {

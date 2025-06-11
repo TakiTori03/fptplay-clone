@@ -2,7 +2,12 @@
   <div class="movie-card" :style="{ width, height }">
     <div class="poster-wrapper">
       <img
-        :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
+        :src="`https://image.tmdb.org/t/p/w500${
+          parseInt(height?.replace('px', '') || '0') >
+          parseInt(width?.replace('px', '') || '0')
+            ? movie.poster_path
+            : movie.backdrop_path
+        }`"
         :alt="movie.title"
         class="poster"
       />
