@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="category-swiper-container">
     <h2>Top 10 phim bộ xu hướng</h2>
     <swiper
@@ -9,7 +9,7 @@
       class="mySwiper"
     >
       <swiper-slide v-for="(rankMovie, index) in rankMovies" :key="index">
-        <RankingCard :rank-movie="rankMovie" :index="index" />
+        <RankingCard :rank-movie="rankMovie" :index="index + 1" />
       </swiper-slide>
     </swiper>
   </div>
@@ -19,7 +19,10 @@
 import type { Movie } from "~/types/movie-d-type";
 import { Navigation } from "swiper/modules";
 import RankingCard from "./RankingCard.vue";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+
+import "swiper/swiper-bundle.css";
 
 const modules = [Navigation];
 
@@ -48,10 +51,10 @@ const rankMovies = ref<Movie[]>([]);
 const fetchRankingMovies = async () => {
   try {
     const response = await fetch(
-      "https://api.themoviedb.org/3/movie/top_rated?page=1&api_key=c3c683516a9277e38dd654ff1a858d0d"
+      "https://api.themoviedb.org/3/trending/movie/day?api_key=c3c683516a9277e38dd654ff1a858d0d"
     );
     const data = await response.json();
-    rankMovies.value = data.results.slice(0, 5);
+    rankMovies.value = data.results.slice(0, 10);
   } catch (err) {
     console.error("Error fetching ranking movies:", err);
   }
@@ -73,19 +76,6 @@ onMounted(() => {
     font-weight: 600;
   }
 
-  .swiper {
-    width: 100%;
-    height: auto;
-    padding: 1rem 0;
-  }
-
-  .swiper-slide {
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   :deep(.swiper-wrapper) {
     display: flex;
     align-items: center;
@@ -94,8 +84,7 @@ onMounted(() => {
   :deep(.swiper-button-next),
   :deep(.swiper-button-prev) {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
     width: 6%;
     height: 100%;
     margin-top: unset;
@@ -108,13 +97,6 @@ onMounted(() => {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
-  }
-
-  :deep(.swiper-button-disabled) {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    cursor: auto;
-    pointer-events: none;
   }
 
   :deep(.swiper-button-next) {
@@ -131,6 +113,13 @@ onMounted(() => {
     box-shadow: none;
   }
 
+  :deep(.swiper-button-disabled) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    cursor: auto;
+    pointer-events: none;
+  }
+
   &:hover {
     :deep(.swiper-button-next),
     :deep(.swiper-button-prev) {
@@ -139,4 +128,4 @@ onMounted(() => {
     }
   }
 }
-</style> -->
+</style>

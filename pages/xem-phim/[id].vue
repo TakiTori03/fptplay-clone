@@ -21,7 +21,7 @@
 
       <!-- Error State -->
       <div v-else-if="error" class="error-state">
-        <div class="error-icon">⚠️</div>
+        <div class="error-icon"></div>
         <h2>Đã xảy ra lỗi</h2>
         <p>{{ error }}</p>
         <button @click="fetchMovie" class="retry-button">Thử lại</button>
@@ -115,9 +115,9 @@
           :height="'180px'"
           :width="'230px'"
           :swiper-breakpoints="{
-            320: { slidesPerView: 2.1, spaceBetween: 10 },
-            768: { slidesPerView: 3.2, spaceBetween: 10 },
-            1536: { slidesPerView: 5.4, spaceBetween: 10 },
+            320: { slidesPerView: 3.2, spaceBetween: 10 },
+            768: { slidesPerView: 4.3, spaceBetween: 10 },
+            1220: { slidesPerView: 5.4, spaceBetween: 10 },
           }"
           :movies="relatedMovie"
         />
